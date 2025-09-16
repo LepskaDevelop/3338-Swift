@@ -2,7 +2,7 @@ import SwiftUI
 import WebKit
 
 struct CGHomeWebView: View {
-    private let urlString = "https://3037-web-gl.vercel.app/"
+    private let urlString = "https://3338-web-gl.vercel.app/"
 
     var body: some View {
         WebContainer(url: URL(string: urlString)!)
