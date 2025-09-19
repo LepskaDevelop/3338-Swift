@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Cluck_GamepackApp: App {
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
-            CGLaunchView()
+            AppEntryPoint()
         }
     }
 }

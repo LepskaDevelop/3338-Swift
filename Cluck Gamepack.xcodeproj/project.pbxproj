@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,15 @@
 		724141292E7988F6000F0503 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141252E7988F6000F0503 /* View+Extensions.swift */; };
 		7241412A2E7988F6000F0503 /* ShapeStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141272E7988F6000F0503 /* ShapeStyle+Extensions.swift */; };
 		7241412B2E7988F6000F0503 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141262E7988F6000F0503 /* Color+Extensions.swift */; };
+		7241415B2E7D4B4C000F0503 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141592E7D4B4C000F0503 /* AppDelegate.swift */; };
+		7241415C2E7D4B4C000F0503 /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241415A2E7D4B4C000F0503 /* AppEntryPoint.swift */; };
+		7241415E2E7D4B62000F0503 /* TextScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241415D2E7D4B62000F0503 /* TextScreen.swift */; };
+		724141642E7D4BBF000F0503 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141622E7D4BBF000F0503 /* PrivacyView.swift */; };
+		7241416B2E7D4C35000F0503 /* WebViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141672E7D4C35000F0503 /* WebViewContainer.swift */; };
+		7241416C2E7D4C35000F0503 /* WebViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141682E7D4C35000F0503 /* WebViewCoordinator.swift */; };
+		7241416D2E7D4C35000F0503 /* UserAgentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141662E7D4C35000F0503 /* UserAgentBuilder.swift */; };
+		7241416E2E7D4C35000F0503 /* WebSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141692E7D4C35000F0503 /* WebSheetViewController.swift */; };
+		7241416F2E7D4C35000F0503 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 724141652E7D4C35000F0503 /* index.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +38,15 @@
 		724141262E7988F6000F0503 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		724141272E7988F6000F0503 /* ShapeStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShapeStyle+Extensions.swift"; sourceTree = "<group>"; };
 		7241412C2E7989A2000F0503 /* Cluck-Gamepack-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Cluck-Gamepack-Info.plist"; sourceTree = SOURCE_ROOT; };
+		724141592E7D4B4C000F0503 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7241415A2E7D4B4C000F0503 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
+		7241415D2E7D4B62000F0503 /* TextScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextScreen.swift; sourceTree = "<group>"; };
+		724141622E7D4BBF000F0503 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
+		724141652E7D4C35000F0503 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		724141662E7D4C35000F0503 /* UserAgentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentBuilder.swift; sourceTree = "<group>"; };
+		724141672E7D4C35000F0503 /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
+		724141682E7D4C35000F0503 /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
+		724141692E7D4C35000F0503 /* WebSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSheetViewController.swift; sourceTree = "<group>"; };
 		A41BD298548CD421C87C623E /* Pods-Cluck Gamepack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cluck Gamepack.debug.xcconfig"; path = "Target Support Files/Pods-Cluck Gamepack/Pods-Cluck Gamepack.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,7 +68,6 @@
 				A41BD298548CD421C87C623E /* Pods-Cluck Gamepack.debug.xcconfig */,
 				604DAAAB9EE7D547B23CE715 /* Pods-Cluck Gamepack.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -87,6 +104,8 @@
 		7241411D2E7988C3000F0503 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				724141592E7D4B4C000F0503 /* AppDelegate.swift */,
+				7241415A2E7D4B4C000F0503 /* AppEntryPoint.swift */,
 				724141192E7988C0000F0503 /* Cluck_GamepackApp.swift */,
 			);
 			path = App;
@@ -111,6 +130,8 @@
 		724141222E7988F0000F0503 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7241416A2E7D4C35000F0503 /* Web */,
+				724141632E7D4BBF000F0503 /* PrivacyScreen */,
 				7241411F2E7988F0000F0503 /* HomeWebScreen */,
 				724141212E7988F0000F0503 /* LaunchScreen */,
 			);
@@ -120,11 +141,32 @@
 		724141282E7988F6000F0503 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7241415D2E7D4B62000F0503 /* TextScreen.swift */,
 				724141252E7988F6000F0503 /* View+Extensions.swift */,
 				724141262E7988F6000F0503 /* Color+Extensions.swift */,
 				724141272E7988F6000F0503 /* ShapeStyle+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		724141632E7D4BBF000F0503 /* PrivacyScreen */ = {
+			isa = PBXGroup;
+			children = (
+				724141622E7D4BBF000F0503 /* PrivacyView.swift */,
+			);
+			path = PrivacyScreen;
+			sourceTree = "<group>";
+		};
+		7241416A2E7D4C35000F0503 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				724141652E7D4C35000F0503 /* index.html */,
+				724141662E7D4C35000F0503 /* UserAgentBuilder.swift */,
+				724141672E7D4C35000F0503 /* WebViewContainer.swift */,
+				724141682E7D4C35000F0503 /* WebViewCoordinator.swift */,
+				724141692E7D4C35000F0503 /* WebSheetViewController.swift */,
+			);
+			path = Web;
 			sourceTree = "<group>";
 		};
 		FD311CB6E7C960705FCC051D /* Frameworks */ = {
@@ -172,6 +214,7 @@
 				};
 			};
 			buildConfigurationList = 724141042E7988A3000F0503 /* Build configuration list for PBXProject "Cluck Gamepack" */;
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -180,7 +223,6 @@
 			);
 			mainGroup = 724141002E7988A3000F0503;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 55;
 			productRefGroup = 7241410A2E7988A3000F0503 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -196,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7241411B2E7988C0000F0503 /* Assets.xcassets in Resources */,
+				7241416F2E7D4C35000F0503 /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,11 +275,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				724141292E7988F6000F0503 /* View+Extensions.swift in Sources */,
+				7241416B2E7D4C35000F0503 /* WebViewContainer.swift in Sources */,
+				7241416C2E7D4C35000F0503 /* WebViewCoordinator.swift in Sources */,
+				7241416D2E7D4C35000F0503 /* UserAgentBuilder.swift in Sources */,
+				7241416E2E7D4C35000F0503 /* WebSheetViewController.swift in Sources */,
+				7241415E2E7D4B62000F0503 /* TextScreen.swift in Sources */,
 				7241412A2E7988F6000F0503 /* ShapeStyle+Extensions.swift in Sources */,
 				7241412B2E7988F6000F0503 /* Color+Extensions.swift in Sources */,
 				7241411C2E7988C0000F0503 /* Cluck_GamepackApp.swift in Sources */,
 				724141232E7988F0000F0503 /* CGLaunchView.swift in Sources */,
+				7241415B2E7D4B4C000F0503 /* AppDelegate.swift in Sources */,
+				7241415C2E7D4B4C000F0503 /* AppEntryPoint.swift in Sources */,
 				724141242E7988F0000F0503 /* CGHomeWebView.swift in Sources */,
+				724141642E7D4BBF000F0503 /* PrivacyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

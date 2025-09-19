@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string></string>
-	</array>
-</dict>
+    <dict>
+        <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+        </dict>
+        <key>NSCameraUsageDescription</key>
+        <string>We need access to your camera to take a profile photo for your account.</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>We need access to your microphone to allow voice input</string>
+        <key>LSApplicationQueriesSchemes</key>
+        <array>
+            <string>http</string>
+            <string>https</string>
+            <string>tel</string>
+            <string>sms</string>
+            <string>mailto</string>
+            <string>ethereum</string>
+            <string>bitcoin</string>
+            <string>ripple</string>
+            <string>litecoin</string>
+            <string>bitcoincash</string>
+        </array>
+        <key>UIAppFonts</key>
+        <array>
+            <string></string>
+        </array>
+    </dict>
 </plist>

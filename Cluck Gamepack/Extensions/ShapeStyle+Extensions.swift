@@ -9,4 +9,7 @@ extension ShapeStyle where Self == Color {
     public static var pink2: Color { Color(hex: 0x8000FF) }
     public static var white: Color { Color(hex: 0xFFFFFF) }
     public static var blue: Color { Color(hex: 0x0D47A1) }
+    public static var privacyGradientTop: Color { Color(hex: 0xE0EAFC) }
+    public static var privacyGradientBottom: Color { Color(hex: 0xCFDEF3) }
+    public static var strokeGreen: Color { Color(hex: 0x14E585) }
 }

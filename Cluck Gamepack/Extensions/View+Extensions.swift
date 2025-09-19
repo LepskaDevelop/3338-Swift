@@ -9,3 +9,13 @@ extension View {
             .navigationBarHidden(true)
     }
 }
+
+extension UIViewController {
+    func topMostPresentedViewController() -> UIViewController {
+        var top = self
+        while let presented = top.presentedViewController {
+            top = presented
+        }
+        return top
+    }
+}

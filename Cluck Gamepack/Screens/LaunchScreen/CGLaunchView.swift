@@ -4,17 +4,31 @@ struct CGLaunchView: View {
     
     @State private var progress: CGFloat = 0.0
     @State private var isActive = false
+    @AppStorage("firstOpenApp") var firstOpenApp = true
+    @AppStorage("stringURL") var stringURL = ""
     
+    @State private var showPrivacy = false
+    @State private var showHome = false
+
     var body: some View {
         NavigationView {
             VStack {
+                
                 Spacer()
                 
                 loader
                 
+                // - Transition
+                NavigationLink(
+                    destination: PrivacyView(),
+                    isActive: $showPrivacy
+                ) {
+                    EmptyView()
+                }
+                
                 NavigationLink(
                     destination: CGHomeWebView(),
-                    isActive: $isActive
+                    isActive: $showHome
                 ) {
                     EmptyView()
                 }
@@ -31,20 +45,18 @@ struct CGLaunchView: View {
                         .ignoresSafeArea()
                 }
             )
-            .onAppear {
-                progress = 0
-                Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { timer in
-                    if progress < 1 {
-                        progress += 0.01
-                    } else {
-                        timer.invalidate()
-                        isActive = true
-                    }
-                }
-            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .hideNavigationBar()
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                if !firstOpenApp {
+                    showHome = true
+                } else {
+                    showPrivacy = true
+                }
+            }
+        }
     }
 }
 
