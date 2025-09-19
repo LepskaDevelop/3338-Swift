@@ -4,16 +4,16 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      app_store_connect: eggmystery
+      app_store_connect: gamebox
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.kivardev.app
+        bundle_identifier: com.lepskaproj.app
       vars:
-        BUNDLE_ID: "com.kivardev.app"
-        XCODE_WORKSPACE: "CoCoSecretCards.xcworkspace" # <-- Put the name of your Xcode workspace here
-        XCODE_SCHEME: "CoCoSecretCards" # <-- Put the name of your Xcode scheme here
-        APP_STORE_APPLE_ID: 6751648702
+        BUNDLE_ID: "com.lepskaproj.app"
+        XCODE_WORKSPACE: "Cluck Gamepack.xcworkspace" # <-- Put the name of your Xcode workspace here
+        XCODE_SCHEME: "Cluck Gamepack" # <-- Put the name of your Xcode scheme here
+        APP_STORE_APPLE_ID: 6752572765
       xcode: latest
       cocoapods: default
     scripts:
