@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		33F6F20255BE07AA66C45DA6 /* Pods_Cluck_Gamepack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D532BE319F43E259B5688F /* Pods_Cluck_Gamepack.framework */; };
+		5F7A437F2E8BF78000FAFD9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F7A437E2E8BF78000FAFD9E /* GoogleService-Info.plist */; };
+		5F7A43812E8BF7E100FAFD9E /* StartupGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A43802E8BF7E100FAFD9E /* StartupGate.swift */; };
 		7241411B2E7988C0000F0503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 724141182E7988C0000F0503 /* Assets.xcassets */; };
 		7241411C2E7988C0000F0503 /* Cluck_GamepackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141192E7988C0000F0503 /* Cluck_GamepackApp.swift */; };
 		724141232E7988F0000F0503 /* CGLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141202E7988F0000F0503 /* CGLaunchView.swift */; };
@@ -24,10 +25,13 @@
 		7241416D2E7D4C35000F0503 /* UserAgentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141662E7D4C35000F0503 /* UserAgentBuilder.swift */; };
 		7241416E2E7D4C35000F0503 /* WebSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141692E7D4C35000F0503 /* WebSheetViewController.swift */; };
 		7241416F2E7D4C35000F0503 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 724141652E7D4C35000F0503 /* index.html */; };
+		99539AE7BB53164FD7CA4B8D /* libPods-Cluck Gamepack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCF5FD0FF531E1746A681779 /* libPods-Cluck Gamepack.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		20D532BE319F43E259B5688F /* Pods_Cluck_Gamepack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cluck_Gamepack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F7A437E2E8BF78000FAFD9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5F7A43802E8BF7E100FAFD9E /* StartupGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupGate.swift; sourceTree = "<group>"; };
+		5F7A43822E8BF9F200FAFD9E /* Cluck Gamepack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cluck Gamepack.entitlements"; sourceTree = "<group>"; };
 		604DAAAB9EE7D547B23CE715 /* Pods-Cluck Gamepack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cluck Gamepack.release.xcconfig"; path = "Target Support Files/Pods-Cluck Gamepack/Pods-Cluck Gamepack.release.xcconfig"; sourceTree = "<group>"; };
 		724141092E7988A3000F0503 /* Cluck Gamepack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cluck Gamepack.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		724141182E7988C0000F0503 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -48,6 +52,7 @@
 		724141682E7D4C35000F0503 /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
 		724141692E7D4C35000F0503 /* WebSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSheetViewController.swift; sourceTree = "<group>"; };
 		A41BD298548CD421C87C623E /* Pods-Cluck Gamepack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cluck Gamepack.debug.xcconfig"; path = "Target Support Files/Pods-Cluck Gamepack/Pods-Cluck Gamepack.debug.xcconfig"; sourceTree = "<group>"; };
+		FCF5FD0FF531E1746A681779 /* libPods-Cluck Gamepack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cluck Gamepack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33F6F20255BE07AA66C45DA6 /* Pods_Cluck_Gamepack.framework in Frameworks */,
+				99539AE7BB53164FD7CA4B8D /* libPods-Cluck Gamepack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +97,8 @@
 		7241411A2E7988C0000F0503 /* Cluck Gamepack */ = {
 			isa = PBXGroup;
 			children = (
+				5F7A43822E8BF9F200FAFD9E /* Cluck Gamepack.entitlements */,
+				5F7A437E2E8BF78000FAFD9E /* GoogleService-Info.plist */,
 				7241412C2E7989A2000F0503 /* Cluck-Gamepack-Info.plist */,
 				724141282E7988F6000F0503 /* Extensions */,
 				724141222E7988F0000F0503 /* Screens */,
@@ -104,6 +111,7 @@
 		7241411D2E7988C3000F0503 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				5F7A43802E8BF7E100FAFD9E /* StartupGate.swift */,
 				724141592E7D4B4C000F0503 /* AppDelegate.swift */,
 				7241415A2E7D4B4C000F0503 /* AppEntryPoint.swift */,
 				724141192E7988C0000F0503 /* Cluck_GamepackApp.swift */,
@@ -172,7 +180,7 @@
 		FD311CB6E7C960705FCC051D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				20D532BE319F43E259B5688F /* Pods_Cluck_Gamepack.framework */,
+				FCF5FD0FF531E1746A681779 /* libPods-Cluck Gamepack.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,6 +196,7 @@
 				724141052E7988A3000F0503 /* Sources */,
 				724141062E7988A3000F0503 /* Frameworks */,
 				724141072E7988A3000F0503 /* Resources */,
+				DE964E9DB96861454F58EC82 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -222,7 +231,6 @@
 				Base,
 			);
 			mainGroup = 724141002E7988A3000F0503;
-			minimizedProjectReferenceProxies = 1;
 			productRefGroup = 7241410A2E7988A3000F0503 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -239,12 +247,30 @@
 			files = (
 				7241411B2E7988C0000F0503 /* Assets.xcassets in Resources */,
 				7241416F2E7D4C35000F0503 /* index.html in Resources */,
+				5F7A437F2E8BF78000FAFD9E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		DE964E9DB96861454F58EC82 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cluck Gamepack/Pods-Cluck Gamepack-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cluck Gamepack/Pods-Cluck Gamepack-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cluck Gamepack/Pods-Cluck Gamepack-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EE617CD396563FF1CC1DA6AF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -285,6 +311,7 @@
 				7241411C2E7988C0000F0503 /* Cluck_GamepackApp.swift in Sources */,
 				724141232E7988F0000F0503 /* CGLaunchView.swift in Sources */,
 				7241415B2E7D4B4C000F0503 /* AppDelegate.swift in Sources */,
+				5F7A43812E8BF7E100FAFD9E /* StartupGate.swift in Sources */,
 				7241415C2E7D4B4C000F0503 /* AppEntryPoint.swift in Sources */,
 				724141242E7988F0000F0503 /* CGHomeWebView.swift in Sources */,
 				724141642E7D4BBF000F0503 /* PrivacyView.swift in Sources */,
@@ -414,12 +441,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Cluck Gamepack/Cluck Gamepack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 99Y7AUQG6Y;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cluck-Gamepack-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to take a profile photo for your account.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to allow voice input";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -434,7 +465,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lepskaproj.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -454,12 +485,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Cluck Gamepack/Cluck Gamepack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 99Y7AUQG6Y;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cluck-Gamepack-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to take a profile photo for your account.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to allow voice input";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -474,7 +509,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lepskaproj.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;

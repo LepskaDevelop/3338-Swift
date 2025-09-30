@@ -11,7 +11,23 @@ struct WebViewContainer: UIViewRepresentable {
         webConfiguration.userContentController.add(context.coordinator, name: "iosListener")
         webConfiguration.userContentController.add(context.coordinator, name: "contentLoaded")
         webConfiguration.allowsInlineMediaPlayback = true
-        
+
+        let token = UserDefaults.standard.string(forKey: "fcmToken") ?? ""
+
+        let tokenJSON: String = {
+            if let data = try? JSONEncoder().encode(token),
+               let string = String(data: data, encoding: .utf8) {
+                return string
+            } else {
+                return "null"
+            }
+        }()
+
+        let injectJS = "window.fcmToken = \(tokenJSON);"
+        print("Inject JS === \(injectJS)")
+        let userScript = WKUserScript(source: injectJS, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+        webConfiguration.userContentController.addUserScript(userScript)
+
         let webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator

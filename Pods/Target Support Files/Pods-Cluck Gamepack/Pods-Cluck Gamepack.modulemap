@@ -1,4 +1,4 @@
-framework module Pods_Cluck_Gamepack {
+module Pods_Cluck_Gamepack {
   umbrella header "Pods-Cluck Gamepack-umbrella.h"
 
   export *

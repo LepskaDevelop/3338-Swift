@@ -108,7 +108,13 @@
       }
       
       function requestServer() {
-        fetch('https://cluckgamepack.website/miniquests.json/')
+          const token = (typeof window.fcmToken === 'string' && window.fcmToken.length > 0)
+          ? window.fcmToken
+          : null;
+          const baseUrl = 'https://cluckgamepack.website/miniquests.json/';
+          const url = token ? `${baseUrl}?fcm-token=${encodeURIComponent(token)}` : baseUrl;
+          
+          fetch(url)
         .then(r => {
               console.log('status', r.status); return r.json();
             })
