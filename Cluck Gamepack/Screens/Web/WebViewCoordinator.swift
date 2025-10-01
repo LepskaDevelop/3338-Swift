@@ -6,7 +6,7 @@ import WebKit
 final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler, WKUIDelegate {
     private var redirectCount = 0
     private var wasCatchDetected = false
-    private let baseDomain = "cluckgamepack.websitee"
+    private let baseDomain = "cluckgamepack.website"
     private var hasHandledScore = false
     
     var parent: WebViewContainer
