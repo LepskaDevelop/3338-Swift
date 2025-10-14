@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F377A232E9E5743003244E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F377A222E9E5743003244E4 /* GoogleService-Info.plist */; };
+		5F377A252E9EEEA2003244E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F377A242E9EEEA2003244E4 /* GoogleService-Info.plist */; };
 		5F7A43812E8BF7E100FAFD9E /* StartupGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A43802E8BF7E100FAFD9E /* StartupGate.swift */; };
 		7241411B2E7988C0000F0503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 724141182E7988C0000F0503 /* Assets.xcassets */; };
 		7241411C2E7988C0000F0503 /* Cluck_GamepackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724141192E7988C0000F0503 /* Cluck_GamepackApp.swift */; };
@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5F377A222E9E5743003244E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5F377A242E9EEEA2003244E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F7A43802E8BF7E100FAFD9E /* StartupGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupGate.swift; sourceTree = "<group>"; };
 		5F7A43822E8BF9F200FAFD9E /* Cluck Gamepack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cluck Gamepack.entitlements"; sourceTree = "<group>"; };
 		604DAAAB9EE7D547B23CE715 /* Pods-Cluck Gamepack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cluck Gamepack.release.xcconfig"; path = "Target Support Files/Pods-Cluck Gamepack/Pods-Cluck Gamepack.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,8 +97,8 @@
 		7241411A2E7988C0000F0503 /* Cluck Gamepack */ = {
 			isa = PBXGroup;
 			children = (
+				5F377A242E9EEEA2003244E4 /* GoogleService-Info.plist */,
 				5F7A43822E8BF9F200FAFD9E /* Cluck Gamepack.entitlements */,
-				5F377A222E9E5743003244E4 /* GoogleService-Info.plist */,
 				7241412C2E7989A2000F0503 /* Cluck-Gamepack-Info.plist */,
 				724141282E7988F6000F0503 /* Extensions */,
 				724141222E7988F0000F0503 /* Screens */,
@@ -246,8 +246,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7241411B2E7988C0000F0503 /* Assets.xcassets in Resources */,
-				5F377A232E9E5743003244E4 /* GoogleService-Info.plist in Resources */,
 				7241416F2E7D4C35000F0503 /* index.html in Resources */,
+				5F377A252E9EEEA2003244E4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +455,7 @@
 				INFOPLIST_FILE = "Cluck-Gamepack-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to take a profile photo for your account.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to allow voice input";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to take a profile photo for your account.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -470,7 +471,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tritestpush.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lepskaproj.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -499,6 +500,7 @@
 				INFOPLIST_FILE = "Cluck-Gamepack-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to take a profile photo for your account.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to allow voice input";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to take a profile photo for your account.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -514,7 +516,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tritestpush.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lepskaproj.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
