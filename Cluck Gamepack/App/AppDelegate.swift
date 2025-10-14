@@ -77,6 +77,13 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let center = UNUserNotificationCenter.current()
         center.delegate = self
 
+        let stringURL = UserDefaults.standard.string(forKey: "stringURL") ?? ""
+        if !stringURL.isEmpty {
+            print("🔕 Skipping push permission — stringURL exists (already passed onboarding)")
+            StartupGate.shared.markNotificationsResolved()
+            return
+        }
+
         center.requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] granted, error in
             self?.log(error != nil ? "🔔 Permission error: \(String(describing: error))" : "🔔 Notification permission granted: \(granted)")
 

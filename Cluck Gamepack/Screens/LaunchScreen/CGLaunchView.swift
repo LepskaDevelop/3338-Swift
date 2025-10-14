@@ -7,6 +7,8 @@ struct CGLaunchView: View {
     
     @AppStorage("firstOpenApp") var firstOpenApp = true
     @AppStorage("stringURL") var stringURL = ""
+    
+    @Environment(\.scenePhase) private var scenePhase
 
     @State private var showPrivacy = false
     @State private var showHome = false
@@ -74,6 +76,19 @@ struct CGLaunchView: View {
         .onDisappear {
             minTimer?.cancel()
             pollTimer?.invalidate()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active {
+                UNUserNotificationCenter.current().getNotificationSettings { settings in
+                    if settings.authorizationStatus == .notDetermined {
+                        print("⚠️ User dismissed system permission alert — treating as denied")
+                        DispatchQueue.main.async {
+                            self.responded = true
+                            self.tryProceed()
+                        }
+                    }
+                }
+            }
         }
     }
     
