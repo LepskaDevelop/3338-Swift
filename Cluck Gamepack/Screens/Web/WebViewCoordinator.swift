@@ -4,6 +4,7 @@ import WebKit
 // MARK: - WebViewCoordinator
 
 final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler, WKUIDelegate {
+    var lastLoadedURL: String = ""
     private var redirectCount = 0
     private var wasCatchDetected = false
     private let baseDomain = "cluckgamepack.website"

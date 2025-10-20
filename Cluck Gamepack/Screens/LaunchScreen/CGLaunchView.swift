@@ -57,10 +57,13 @@ struct CGLaunchView: View {
     
     private func startMinSplash() {
         progress = 0.0
-        withAnimation(.linear(duration: minSplash)) {
-            progress = 0.7
-        }
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            withAnimation(.linear(duration: minSplash)) {
+                progress = 0.7
+            }
+        }
+
         minTimer?.cancel()
         let w = DispatchWorkItem {
             minSplashDone = true
@@ -69,27 +72,27 @@ struct CGLaunchView: View {
         minTimer = w
         DispatchQueue.main.asyncAfter(deadline: .now() + minSplash, execute: w)
     }
-    
+
     private func tryProceed() {
         guard !fired else { return }
-        
+
         if isSimulator {
             guard minSplashDone else { return }
-            goNext(after: 0)
+            animateToFullAndProceed()
             return
         }
-        
+
         guard minSplashDone, pushManager.resolved else { return }
-        goNext(after: postConsentDelay)
+        animateToFullAndProceed()
     }
 
-    private func goNext(after delay: TimeInterval) {
+    private func animateToFullAndProceed() {
         fired = true
-        withAnimation(.linear(duration: delay)) {
+        withAnimation(.easeInOut(duration: postConsentDelay)) {
             progress = 1.0
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + postConsentDelay) {
             if !stringURL.isEmpty || firstOpenApp {
                 AppDelegate.orientationLock = [.portrait, .landscapeLeft, .landscapeRight]
                 showPrivacy = true
@@ -139,17 +142,6 @@ extension CGLaunchView {
                 )
                 .frame(width: progress * 280, height: 35)
                 .animation(.linear(duration: 0.25), value: progress)
-            
-            HStack {
-                Text("LOADING...")
-                    .foregroundStyle(.yellow1)
-                    .font(.system(size: 16, weight: .bold, design: .default))
-                
-                Text("\(Int(progress * 100))%")
-                    .foregroundStyle(.yellow1)
-                    .font(.system(size: 16, weight: .bold, design: .default))
-            }
-            .padding(.horizontal, 12)
         }
         .frame(width: 280)
     }
