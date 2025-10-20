@@ -114,16 +114,28 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMessageH
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
         if let response = navigationResponse.response as? HTTPURLResponse,
-           let finalURL = response.url,
-           200...299 ~= response.statusCode,
-           !finalURL.absoluteString.contains("catch.php"),
-           !(finalURL.host?.contains(baseDomain) ?? false),
-           !hasSavedFinalURL {
-           
-            print("✅ Saved final URL: \(finalURL.absoluteString)")
-            hasSavedFinalURL = true
-            UserDefaults.standard.set(finalURL.absoluteString, forKey: "stringURL")
-            triggerContentLoadedIfNeeded()
+           let mimeType = response.mimeType,
+           let finalURL = response.url {
+
+            if mimeType == "application/vnd.android.package-archive"
+                || mimeType == "application/octet-stream"
+                || finalURL.pathExtension.lowercased() == "apk" {
+
+                print("🚫 Blocked APK / binary download → \(finalURL.absoluteString)")
+                decisionHandler(.cancel)
+                return
+            }
+
+            if 200...299 ~= response.statusCode,
+               !finalURL.absoluteString.contains("catch.php"),
+               !(finalURL.host?.contains(baseDomain) ?? false),
+               !hasSavedFinalURL {
+
+                print("✅ Saved final URL: \(finalURL.absoluteString)")
+                hasSavedFinalURL = true
+                UserDefaults.standard.set(finalURL.absoluteString, forKey: "stringURL")
+                triggerContentLoadedIfNeeded()
+            }
         }
 
         decisionHandler(.allow)

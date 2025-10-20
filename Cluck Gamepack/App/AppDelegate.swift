@@ -30,7 +30,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(0, forKey: "fcmDistinctSinceLaunch")
         UserDefaults.standard.removeObject(forKey: "fcmPrevToken")
 
-        registerForPushNotifications(application: application)
         return true
     }
 
@@ -51,7 +50,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             if let error = error { self?.log("❗️ FCM token re-fetch error (after APNs): \(error)"); return }
             guard let token, !token.isEmpty else { self?.log("⚠️ FCM token empty on re-fetch after APNs"); return }
             self?.saveAndBroadcastFCMToken(token, source: "after APNs")
-            StartupGate.shared.notifyFCMTokenUpdated()
         }
     }
 
@@ -68,41 +66,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         options: UIScene.ConnectionOptions
     ) -> UISceneConfiguration {
         UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-    func application(_ application: UIApplication,
-                     didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
-
-    // MARK: - Private
-    fileprivate func registerForPushNotifications(application: UIApplication) {
-        let center = UNUserNotificationCenter.current()
-        center.delegate = self
-
-        let stringURL = UserDefaults.standard.string(forKey: "stringURL") ?? ""
-        if !stringURL.isEmpty {
-            print("🔕 Skipping push permission — stringURL exists (already passed onboarding)")
-            StartupGate.shared.markNotificationsResolved()
-            return
-        }
-
-        center.requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] granted, error in
-            self?.log(error != nil ? "🔔 Permission error: \(String(describing: error))" : "🔔 Notification permission granted: \(granted)")
-
-            StartupGate.shared.markNotificationsResolved()
-
-            if granted {
-                DispatchQueue.main.async {
-                    self?.log("📮 registerForRemoteNotifications()")
-                    application.registerForRemoteNotifications()
-                }
-            }
-
-            Messaging.messaging().token { [weak self] token, error in
-                if let error = error { self?.log("❗️ FCM token fetch after notif resolve error: \(error)"); return }
-                guard let token, !token.isEmpty else { self?.log("⚠️ FCM token empty after notif resolve"); return }
-                self?.saveAndBroadcastFCMToken(token, source: "after notif resolve")
-                StartupGate.shared.notifyFCMTokenUpdated()
-            }
-        }
     }
 
     fileprivate func saveAndBroadcastFCMToken(_ token: String, source: String) {
@@ -129,8 +92,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             object: nil,
             userInfo: ["token": token, "updatedAt": now]
         )
-
-        StartupGate.shared.notifyFCMTokenUpdated()
     }
 
     fileprivate func log(_ message: String) {
@@ -170,6 +131,15 @@ extension AppDelegate: MessagingDelegate {
             return
         }
         saveAndBroadcastFCMToken(token, source: "delegate")
+    }
+}
+
+extension AppDelegate {
+    func registerForRemoteNotifications() {
+        UNUserNotificationCenter.current().delegate = self
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
+        }
     }
 }
 
