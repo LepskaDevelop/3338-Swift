@@ -58,7 +58,7 @@ struct CGLaunchView: View {
     private func startMinSplash() {
         progress = 0.0
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             withAnimation(.linear(duration: minSplash)) {
                 progress = 0.7
             }

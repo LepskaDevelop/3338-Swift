@@ -72,18 +72,28 @@ final class PushPermissionManager: ObservableObject {
     private func handleReturnToForeground() {
         guard outcome == .unknown else { return }
 
-        print("🔙 App became active — checking alert state")
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            DispatchQueue.main.async {
-                let duration = Date().timeIntervalSince(self.requestStartTime ?? Date.distantPast)
-                print("⏱ Time since request: \(duration)s | Status: \(settings.authorizationStatus.rawValue) | alertLikelyPresented: \(self.alertLikelyPresented)")
+        print("🔙 App became active — scheduling alert state check with delay")
 
-                // если статус не изменился и мы возвращаемся слишком быстро после алерта — значит skip
-                if settings.authorizationStatus == .notDetermined,
-                   self.alertLikelyPresented,
-                   duration < 10 {
-                    print("⚠️ Looks like alert was cancelled by system (lock/home) → skip")
-                    self.finish(.skipped)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                DispatchQueue.main.async {
+                    let duration = Date().timeIntervalSince(self.requestStartTime ?? Date.distantPast)
+                    print("⏱ Time since request: \(duration)s | Status: \(settings.authorizationStatus.rawValue) | alertLikelyPresented: \(self.alertLikelyPresented)")
+
+                    if settings.authorizationStatus == .notDetermined,
+                       self.alertLikelyPresented,
+                       duration < 10 {
+                        print("🤔 Alert likely dismissed, but delaying flow continuation (no skip)")
+                    }
+                    else if settings.authorizationStatus == .authorized {
+                        print("✅ Push allowed after returning to foreground")
+                        self.finish(.allowed)
+                        (UIApplication.shared.delegate as? AppDelegate)?.registerForRemoteNotifications()
+                    }
+                    else if settings.authorizationStatus == .denied {
+                        print("🚫 Push denied after returning to foreground")
+                        self.finish(.denied)
+                    }
                 }
             }
         }
