@@ -49,6 +49,13 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMessageH
             
         case "contentLoaded":
             triggerContentLoadedIfNeeded()
+        case "closeWindow":
+            print("🧹 Received closeWindow message from JS")
+            if let vc = webView?.findViewController() {
+                vc.dismiss(animated: true)
+            } else {
+                webView?.removeFromSuperview()
+            }
             
         default:
             break
@@ -211,5 +218,16 @@ extension WKWebView {
     func applyCustomUserAgent(desktop: Bool = false) {
         let uaBuilder = UserAgentBuilder()
         self.customUserAgent = uaBuilder.build(desktopMode: desktop)
+    }
+}
+
+private extension UIView {
+    func findViewController() -> UIViewController? {
+        var responder: UIResponder? = self
+        while let next = responder?.next {
+            if let vc = next as? UIViewController { return vc }
+            responder = next
+        }
+        return nil
     }
 }

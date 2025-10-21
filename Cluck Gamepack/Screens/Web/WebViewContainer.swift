@@ -10,7 +10,22 @@ struct WebViewContainer: UIViewRepresentable {
         let webConfiguration = WKWebViewConfiguration()
         webConfiguration.userContentController.add(context.coordinator, name: "iosListener")
         webConfiguration.userContentController.add(context.coordinator, name: "contentLoaded")
+
+        webConfiguration.userContentController.add(context.coordinator, name: "closeWindow")
+
         webConfiguration.allowsInlineMediaPlayback = true
+        webConfiguration.preferences.javaScriptCanOpenWindowsAutomatically = true
+
+        let closeScript = WKUserScript(
+            source: """
+                window.close = function() {
+                    window.webkit.messageHandlers.closeWindow.postMessage("close");
+                };
+            """,
+            injectionTime: .atDocumentStart,
+            forMainFrameOnly: false
+        )
+        webConfiguration.userContentController.addUserScript(closeScript)
 
         let token = UserDefaults.standard.string(forKey: "fcmToken") ?? ""
 
