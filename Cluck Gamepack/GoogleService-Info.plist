@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tritestpush.app</string>
+	<string>com.tritestpushsw.app</string>
 	<key>PROJECT_ID</key>
 	<string>iosor-166</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:99454767103:ios:9118b6546c2a3fe00c21ca</string>
+	<string>1:99454767103:ios:3bb0894be2ed080a0c21ca</string>
 </dict>
 </plist>

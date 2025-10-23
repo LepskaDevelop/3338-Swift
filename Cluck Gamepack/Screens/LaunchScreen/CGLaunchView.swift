@@ -6,8 +6,7 @@ struct CGLaunchView: View {
     @AppStorage("firstOpenApp") var firstOpenApp = true
     @AppStorage("stringURL") var stringURL = ""
     
-    @StateObject private var pushManager = PushPermissionManager.shared
-    
+    @State private var pushAnswered = false
     @State private var showPrivacy = false
     @State private var showHome = false
     @State private var minSplashDone = false
@@ -15,8 +14,8 @@ struct CGLaunchView: View {
     @State private var minTimer: DispatchWorkItem?
     @State private var progress: CGFloat = 0.0
     
-    private let minSplash: TimeInterval = 2.0
-    private let postConsentDelay: TimeInterval = 1.5
+    private let minSplash: TimeInterval = 1.5
+    private let postConsentDelay: TimeInterval = 2.0
     
 #if targetEnvironment(simulator)
     private let isSimulator = true
@@ -48,10 +47,28 @@ struct CGLaunchView: View {
         .hideNavigationBar()
         .onAppear {
             startMinSplash()
-            pushManager.requestIfNeeded()
+            
+            NotificationCenter.default.addObserver(
+                forName: .pushPermissionGranted,
+                object: nil,
+                queue: .main
+            ) { _ in
+                pushAnswered = true
+                tryProceed()
+            }
+
+            NotificationCenter.default.addObserver(
+                forName: .pushPermissionDenied,
+                object: nil,
+                queue: .main
+            ) { _ in
+                pushAnswered = true
+                tryProceed()
+            }
         }
-        .onChange(of: pushManager.resolved) { _ in
-            tryProceed()
+        .onDisappear {
+            NotificationCenter.default.removeObserver(self, name: .pushPermissionGranted, object: nil)
+            NotificationCenter.default.removeObserver(self, name: .pushPermissionDenied, object: nil)
         }
     }
     
@@ -82,7 +99,7 @@ struct CGLaunchView: View {
             return
         }
 
-        guard minSplashDone, pushManager.resolved else { return }
+        guard minSplashDone, pushAnswered else { return }
         animateToFullAndProceed()
     }
 

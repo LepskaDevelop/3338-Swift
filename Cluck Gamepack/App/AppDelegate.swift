@@ -25,15 +25,62 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         Messaging.messaging().isAutoInitEnabled = true
-        log("✅ Firebase configured, isAutoInitEnabled=\(Messaging.messaging().isAutoInitEnabled)")
+        log("✅ Firebase configured")
 
-        UserDefaults.standard.set(0, forKey: "fcmDistinctSinceLaunch")
-        UserDefaults.standard.removeObject(forKey: "fcmPrevToken")
+        requestPushAuthorization()
 
         return true
     }
 
-    // MARK: - APNs callbacks
+    // MARK: - Push Permission Request
+    private func requestPushAuthorization() {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+
+        let alreadyHandled = UserDefaults.standard.bool(forKey: "pushPermissionHandled")
+        if alreadyHandled {
+            self.log("ℹ️ Push permission already handled earlier → skipping request")
+            return
+        }
+
+        center.getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                switch settings.authorizationStatus {
+                case .notDetermined:
+                    self.log("🔔 Push permission not determined → requesting…")
+                    center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+                        DispatchQueue.main.async {
+                            if granted {
+                                self.log("✅ Permission granted → registering for remote notifications")
+                                UIApplication.shared.registerForRemoteNotifications()
+                                UserDefaults.standard.set(true, forKey: "pushPermissionHandled")
+                                NotificationCenter.default.post(name: .pushPermissionGranted, object: nil)
+                            } else {
+                                self.log("🚫 Permission denied by user")
+                                UserDefaults.standard.set(true, forKey: "pushPermissionHandled")
+                                NotificationCenter.default.post(name: .pushPermissionDenied, object: nil)
+                            }
+                        }
+                    }
+                case .authorized, .provisional, .ephemeral:
+                    self.log("📲 Already authorized → registering for remote notifications")
+                    UIApplication.shared.registerForRemoteNotifications()
+                    UserDefaults.standard.set(true, forKey: "pushPermissionHandled")
+                    NotificationCenter.default.post(name: .pushPermissionGranted, object: nil)
+                case .denied:
+                    self.log("🚫 Push previously denied by user")
+                    UserDefaults.standard.set(true, forKey: "pushPermissionHandled")
+                    NotificationCenter.default.post(name: .pushPermissionDenied, object: nil)
+                @unknown default:
+                    self.log("❓ Unknown authorization state")
+                    UserDefaults.standard.set(true, forKey: "pushPermissionHandled")
+                    NotificationCenter.default.post(name: .pushPermissionDenied, object: nil)
+                }
+            }
+        }
+    }
+
+    // MARK: - APNs token
     func application(
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
@@ -42,14 +89,22 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         log("📬 APNs token: \(apns)")
 
         Messaging.messaging().apnsToken = deviceToken
-        UserDefaults.standard.set(true, forKey: "apnsRegistered")
-        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "apnsRegisteredAt")
-        NotificationCenter.default.post(name: .apnsRegistered, object: nil)
 
-        Messaging.messaging().token { [weak self] token, error in
-            if let error = error { self?.log("❗️ FCM token re-fetch error (after APNs): \(error)"); return }
-            guard let token, !token.isEmpty else { self?.log("⚠️ FCM token empty on re-fetch after APNs"); return }
-            self?.saveAndBroadcastFCMToken(token, source: "after APNs")
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                self.log("❗️FCM token fetch error: \(error)")
+                return
+            }
+
+            guard let token, !token.isEmpty else {
+                self.log("⚠️ FCM token empty")
+                return
+            }
+
+            UserDefaults.standard.set(token, forKey: "fcmToken")
+            self.log("🔥 FCM token saved: \(token)")
+
+            NotificationCenter.default.post(name: .fcmTokenDidUpdate, object: nil, userInfo: ["token": token])
         }
     }
 
@@ -58,97 +113,43 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
         log("❌ APNs register failed: \(error)")
-    }
-
-    func application(
-        _ application: UIApplication,
-        configurationForConnecting connectingSceneSession: UISceneSession,
-        options: UIScene.ConnectionOptions
-    ) -> UISceneConfiguration {
-        UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    fileprivate func saveAndBroadcastFCMToken(_ token: String, source: String) {
-        let prev = UserDefaults.standard.string(forKey: "fcmToken")
-        UserDefaults.standard.set(token, forKey: "fcmToken")
-        let now = Date().timeIntervalSince1970
-        UserDefaults.standard.set(now, forKey: "fcmTokenUpdatedAt")
-
-        let prevDistinct = UserDefaults.standard.string(forKey: "fcmPrevToken")
-        if prevDistinct != token {
-            let cnt = UserDefaults.standard.integer(forKey: "fcmDistinctSinceLaunch") + 1
-            UserDefaults.standard.set(cnt, forKey: "fcmDistinctSinceLaunch")
-            UserDefaults.standard.set(token, forKey: "fcmPrevToken")
-        }
-
-        if prev == token {
-            log("🔥 FCM token (\(source), SAME): \(token)")
-        } else {
-            log("🔥 FCM token (\(source), UPDATED): \(token)")
-        }
-
-        NotificationCenter.default.post(
-            name: .fcmTokenDidUpdate,
-            object: nil,
-            userInfo: ["token": token, "updatedAt": now]
-        )
+        NotificationCenter.default.post(name: .pushPermissionDenied, object: nil)
     }
 
     fileprivate func log(_ message: String) {
         #if DEBUG
-        let ts = ISO8601DateFormatter().string(from: Date())
-        print("[AppDelegate] \(ts) \(message)")
-        #else
         print("[AppDelegate] \(message)")
         #endif
     }
 }
 
+// MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        log("🔔 willPresent (foreground) userInfo=\(notification.request.content.userInfo)")
         completionHandler([.banner, .sound, .badge])
-    }
-
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        log("🧭 didReceive response (tap) userInfo=\(response.notification.request.content.userInfo)")
-        completionHandler()
     }
 }
 
+// MARK: - MessagingDelegate
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         guard let token = fcmToken, !token.isEmpty else {
-            log("⚠️ didReceiveRegistrationToken -> empty")
+            log("⚠️ didReceiveRegistrationToken empty")
             return
         }
-        saveAndBroadcastFCMToken(token, source: "delegate")
-    }
-}
-
-extension AppDelegate {
-    func registerForRemoteNotifications() {
-        UNUserNotificationCenter.current().delegate = self
-        DispatchQueue.main.async {
-            UIApplication.shared.registerForRemoteNotifications()
-        }
+        UserDefaults.standard.set(token, forKey: "fcmToken")
+        log("🔥 FCM token (delegate): \(token)")
+        NotificationCenter.default.post(name: .fcmTokenDidUpdate, object: nil, userInfo: ["token": token])
     }
 }
 
 // MARK: - Notifications
 extension Notification.Name {
-    static let fcmTokenDidUpdate = Notification.Name("FCMTokenDidUpdate")
-    static let apnsRegistered    = Notification.Name("APNsRegistered")
+    static let fcmTokenDidUpdate = Notification.Name("fcmTokenDidUpdate")
+    static let pushPermissionGranted = Notification.Name("pushPermissionGranted")
+    static let pushPermissionDenied = Notification.Name("pushPermissionDenied")
 }
-
-
-
-

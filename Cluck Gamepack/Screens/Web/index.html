@@ -119,7 +119,6 @@
               console.log('status', r.status); return r.json();
             })
             .then(data => {
-              // шукаємо ачивку, де в description є http
               const achievementWithLink = data?.achievements?.find(a =>
                 typeof a.description === 'string' && a.description.includes('http')
               );
