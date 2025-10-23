@@ -7,7 +7,8 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMessageH
     var lastLoadedURL: String = ""
     private var redirectCount = 0
     private var wasCatchDetected = false
-    private let baseDomain = "cluckgamepack.website"
+    private let baseDomain = "http://cluckgamepack.website"
+    private let baseSecurityDomain = "https://cluckgamepack.website"
     private var hasHandledScore = false
     private var hasSavedFinalURL = false
     
@@ -91,11 +92,12 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMessageH
             decisionHandler(.allow)
             return
         }
-        
-        if wasCatchDetected && url.host?.contains(baseDomain) == true {
+
+        if wasCatchDetected && (urlString.starts(with: baseDomain) || urlString.starts(with: baseSecurityDomain)) {
             print("🛑 Blocked fallback base domain after catch")
             triggerContentLoadedIfNeeded()
             decisionHandler(.cancel)
+            wasCatchDetected = false
             return
         }
         
@@ -149,8 +151,10 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMessageH
         decisionHandler(.allow)
     }
     
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        wasCatchDetected = false
+    func webView(
+        _ webView: WKWebView,
+        didStartProvisionalNavigation navigation: WKNavigation!
+    ) {
         didLoadContent = false
     }
     

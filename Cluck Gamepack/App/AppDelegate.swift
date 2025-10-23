@@ -40,6 +40,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let alreadyHandled = UserDefaults.standard.bool(forKey: "pushPermissionHandled")
         if alreadyHandled {
             self.log("ℹ️ Push permission already handled earlier → skipping request")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                NotificationCenter.default.post(name: .pushPermissionGranted, object: nil)
+            }
             return
         }
 
